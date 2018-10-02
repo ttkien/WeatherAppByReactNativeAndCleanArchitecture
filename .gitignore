@@ -1,3 +1,5 @@
 native/node_modules/
 native/ios/build/
 native/android/.gradle/
+node_modules/
+.vscode/
