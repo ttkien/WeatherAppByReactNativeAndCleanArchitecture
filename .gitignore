@@ -3,3 +3,4 @@ native/ios/build/
 native/android/.gradle/
 node_modules/
 .vscode/
+package-lock.json
