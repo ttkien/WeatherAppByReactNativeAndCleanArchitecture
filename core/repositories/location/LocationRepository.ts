@@ -1,6 +1,5 @@
-import { LocationUsecaseInterface } from '../../domain/usecases-interface/LocationUsecase';
 import { Observable } from 'rxjs';
-import { Location } from '../../domain/entities/Location';
+import { Location, LocationUsecaseInterface } from '../../domain';
 import { createClient } from '@google/maps';
 
 export class LocationRepository implements LocationUsecaseInterface {
@@ -18,7 +17,7 @@ export class LocationRepository implements LocationUsecaseInterface {
 
                     if (response) {
 
-                        for (const prediction of response.json.predictions) {
+                        for (const prediction in response.json.predictions) {
 
                            console.log(prediction)
                         }
@@ -40,12 +39,9 @@ console.log("1")
 var repository = new LocationRepository()
 repository.searchCity("Ho")
     .subscribe((e) => {
-
         console.log(e)
-
     },
         error => {
             console.log(error)
-
         }
     )
