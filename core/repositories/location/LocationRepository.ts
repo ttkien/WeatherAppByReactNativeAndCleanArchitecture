@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Location, LocationRepository } from '../../domain';
-import { createClient } from '@google/maps';
+import { createClient } from '@google/maps'
 
 export class DefaultLocationRepository implements LocationRepository {
     searchCity(searchText: string): Observable<Location> {
