@@ -1,0 +1,43 @@
+{
+  "devDependencies": {
+    "@google/maps": "^0.5.5",
+    "@types/jest": "^23.3.2",
+    "debug": "4.0.1",
+    "jest": "^23.6.0",
+    "react": "^16.5.2",
+    "react-addons-test-utils": "^15.6.2",
+    "react-native": "^0.57.1",
+    "react-native-typescript-transformer": "^1.2.10",
+    "ts-jest": "^23.10.3",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "@types/gapi": "0.0.36",
+    "@types/google-maps": "^3.2.0",
+    "debug": "4.0.1",
+    "googleapis": "^34.0.0",
+    "rxjs": "^6.3.3"
+  },
+  "scripts": {
+    "test": "jest",
+    "debug": "node --inspect-brk core/repositories/location/LocationRepository.js"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
+  }
+}
