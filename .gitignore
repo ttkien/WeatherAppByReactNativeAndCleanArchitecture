@@ -4,3 +4,5 @@ native/android/.gradle/
 node_modules/
 .vscode/
 package-lock.json
+yarn.lock
+.jest/

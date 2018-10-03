@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { Location, LocationUsecaseInterface } from '../../domain';
+import { Location, LocationRepository } from '../../domain';
 import { createClient } from '@google/maps';
 
-export class LocationRepository implements LocationUsecaseInterface {
+export class DefaultLocationRepository implements LocationRepository {
     searchCity(searchText: string): Observable<Location> {
         return Observable.create(function (observer) {
             const client = createClient({
@@ -14,34 +14,26 @@ export class LocationRepository implements LocationUsecaseInterface {
             }
             client.placesAutoComplete(query,
                 function (err, response) {
-
                     if (response) {
 
-                        for (const prediction in response.json.predictions) {
-
-                           console.log(prediction)
+                        var results = []
+                        for (const prediction of response.json.predictions) {
+                            var structured_formatting = prediction.structured_formatting
+                            var mainText = structured_formatting.main_text
+                            var secondaryText = structured_formatting.secondary_text
+                        
+                            results.push(new Location(
+                                mainText, secondaryText
+                            ))
                         }
-        
-                        observer.next(response)
+
+                        observer.next(results)
                     } else {
                         console.log(err)
 
-                        observer.next(err)
+                        observer.error(err)
                     }
                 })
         })
     }
 }
-
-
-console.log("1")
-
-var repository = new LocationRepository()
-repository.searchCity("Ho")
-    .subscribe((e) => {
-        console.log(e)
-    },
-        error => {
-            console.log(error)
-        }
-    )
