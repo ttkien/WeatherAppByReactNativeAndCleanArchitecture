@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es6",                         
+    "module": "commonjs",                    
+    "lib": [
+      "es6", "dom"
+    ],                           
+    "jsx": "react",                          
+    "outDir": "./dist/",                       
+   
+    "noImplicitAny": false,                
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@google",
+      "./node_modules/@babel"
+      ],                     
+    "types": [
+
+    ],                           
+    "esModuleInterop": true,                  
+
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "noUnusedLocals": false
+  },
+   "exclude": [
+    "node_modules"
+  ]
+}

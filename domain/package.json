@@ -1,0 +1,25 @@
+{
+  "name": "weather-domain",
+  "version": "0.0.3",
+  "description": "Domain",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "domain",
+    "weather"
+  ],
+  "author": "Kien Tran",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.11.4",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "rxjs": "^6.3.3"
+  }
+}
