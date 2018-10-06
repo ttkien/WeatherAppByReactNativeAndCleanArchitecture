@@ -4,6 +4,7 @@
   "description": "Domain",
   "main": "./dist/index.js",
   "scripts": {
+    "build": "yarn install && tsc",
     "test": "jest"
   },
   "keywords": [

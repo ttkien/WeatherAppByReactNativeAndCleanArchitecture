@@ -1,9 +1,10 @@
 {
   "name": "weather-repositories",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Repository",
   "main": "./dist/index.js",
   "scripts": {
+    "build": "yarn install && tsc",
     "test": "jest",
     "debug": "node --inspect-brk"
   },
@@ -14,13 +15,13 @@
   "author": "Kien Tran",
   "license": "MIT",
   "dependencies": {
-    "@akanass/rx-http-request": "^3.0.0",
     "@google/maps": "^0.5.5",
+    "@reactivex/rxjs": "^6.3.3",
     "@types/googlemaps": "^3.30.13",
     "@types/jest": "^23.3.3",
+    "axios": "^0.18.0",
     "google-maps": "^3.3.0",
     "react-native-google-maps-services": "^0.5.1",
-    "rxjs": "^6.3.3",
     "weather-domain": "file:../domain"
   },
   "devDependencies": {
