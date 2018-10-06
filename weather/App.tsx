@@ -14,6 +14,8 @@ import { Location } from 'weather-domain'
 import { DefaultLocationRepository } from 'weather-repositories'
 import * as Rx from 'rxjs'
 import { map, throttle, throttleTime } from 'rxjs/operators'
+import {SearchLocationItem} from 'weather-ui'
+
 type Props = {};
 export default class App extends Component<Props> {
 
@@ -36,10 +38,9 @@ export default class App extends Component<Props> {
     }
 
     _renderItem = ({ item }) => (
-
-        <Text
-            title={item.name}
-        >{item.name}</Text>
+        <SearchLocationItem
+            name={item.name + "aaa"}
+        ></SearchLocationItem>
     )
 
     render() {

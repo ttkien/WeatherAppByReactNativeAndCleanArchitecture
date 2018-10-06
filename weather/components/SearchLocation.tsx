@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { View, SafeAreaView, FlatList, Text } from 'react-native';
 import { SearchBar, ListItem } from 'react-native-elements';
 import { DefaultLocationRepository } from 'weather-repositories';
+import {SearchLocationItem} from 'WeatherUI'
 
 type Props = {};
 export default class SearchLocation extends Component<Props> {
@@ -24,9 +25,9 @@ export default class SearchLocation extends Component<Props> {
     }
 
     _renderItem = ({item}) => (
-        <Text
-          title={item.name}
-        ></Text>
+        <SearchLocationItem
+          name={item.name + "sfsafs"}
+        ></SearchLocationItem>
       );
 
       
