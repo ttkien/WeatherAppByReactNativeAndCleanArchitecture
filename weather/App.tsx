@@ -14,7 +14,7 @@ import { Location } from 'weather-domain'
 import { DefaultLocationRepository } from 'weather-repositories'
 import * as Rx from 'rxjs'
 import { map, throttle, throttleTime } from 'rxjs/operators'
-import {SearchLocationList, SearchLocationListDataItem} from './components/SearchLocationList';
+import {SearchLocationList, SearchLocationListDataItem} from 'weather-ui';
 
 type Props = {};
 type State = {
