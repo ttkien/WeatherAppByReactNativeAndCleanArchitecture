@@ -14,13 +14,20 @@ import { Location } from 'weather-domain'
 import { DefaultLocationRepository } from 'weather-repositories'
 import * as Rx from 'rxjs'
 import { map, throttle, throttleTime } from 'rxjs/operators'
-import {SearchLocationItem} from 'weather-ui'
+import {SearchLocationList, SearchLocationListDataItem} from './components/SearchLocationList';
 
 type Props = {};
-export default class App extends Component<Props> {
+type State = {
+    locations: SearchLocationListDataItem[]
+};
+export default class App extends Component<Props,State> {
+
+    constructor(props: Props) {
+        super(props);
+    }
 
     state = {
-        locations: [new Location("test", "test")]
+        locations: []
     }
     onChangeText = (text) => {
 
@@ -28,20 +35,17 @@ export default class App extends Component<Props> {
         repository.searchCity(text)
             .pipe(throttleTime(1000))
             .subscribe(
-                results => {
+                (results:[Location]) => {
                     console.log(results)
+                    const dataItems = results.map((location:Location) => {
+                        return new SearchLocationListDataItem(location.name)
+                    })
                     this.setState({
-                        locations: results
+                        locations: dataItems
                     })
                 }
             )
     }
-
-    _renderItem = ({ item }) => (
-        <SearchLocationItem
-            name={item.name + "aaa"}
-        ></SearchLocationItem>
-    )
 
     render() {
         return (
@@ -50,13 +54,9 @@ export default class App extends Component<Props> {
                     onChangeText={this.onChangeText}
                     placeholder='Enter location'
                 ></SearchBar>
-                <FlatList
-                    data={this.state.locations}
-                    renderItem={this._renderItem}
-
-                >
-
-                </FlatList>
+                <SearchLocationList
+                items={this.state.locations}
+                />
             </SafeAreaView>
         )
     }

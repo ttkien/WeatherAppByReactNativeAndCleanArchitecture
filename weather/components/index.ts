@@ -1,0 +1,1 @@
+import {SearchLocationList} from "./SearchLocationList/SearchLocationList";
