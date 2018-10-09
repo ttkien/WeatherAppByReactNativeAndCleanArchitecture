@@ -8,70 +8,27 @@
 
 import React from "react";
 import { Component } from "react";
-import { Alert, FlatList, Image, Platform, SafeAreaView, StyleSheet, Text, View  } from "react-native";
-import { Button, Card, Icon, ListItem, SearchBar } from "react-native-elements";
-import * as Rx from "rxjs";
-import { map, throttle, throttleTime } from "rxjs/operators";
-import { Location } from "weather-domain";
-import { DefaultLocationRepository } from "weather-repositories";
-import {SearchLocationList, SearchLocationListDataItem} from "weather-ui";
+import { View } from "react-native";
+import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import Home from "./src/Home/Home";
+// import rootReducer from "./src/reducer";
+import { reducer } from "./src/reducer/reducer";
 
-class Props {}
+const store = createStore(reducer, applyMiddleware(thunk));
 
-// tslint:disable-next-line:max-classes-per-file
-interface IState {
-     locations: SearchLocationListDataItem[];
-}
+export default class App extends Component {
 
-// tslint:disable-next-line:max-classes-per-file
-export default class App extends Component<Props, IState> {
-
-    public state = {
-        locations: [],
-    };
-    constructor(props: Props) {
+    constructor(props) {
         super(props);
-    }
-    public onChangeText = (text) => {
-        const repository = new DefaultLocationRepository();
-        repository.searchCity(text)
-            .pipe(throttleTime(1000))
-            .subscribe(
-                (results: [Location]) => {
-                    const dataItems = results.map((location: Location) => {
-                        return new SearchLocationListDataItem(location.name);
-                    });
-                    this.setState({
-                        locations: dataItems,
-                    });
-                },
-            );
-    }
-
-    public onClear = () => {
-
-        // alert("onClear");
-        this.onChangeText("");
-    }
-    public onCancel = () => {
-
-        // this.onChangeText("");
     }
 
     public render() {
         return (
-            <SafeAreaView>
-                <SearchBar
-                    platform="ios"
-                    onChangeText={this.onChangeText}
-                    placeholder="Enter location"
-                    onClear={this.onClear}
-                    onCancel={this.onCancel}
-                ></SearchBar>
-                <SearchLocationList
-                items={this.state.locations}
-                />
-            </SafeAreaView>
+             <Provider store={store}>
+             <Home></Home>
+             </Provider>
         );
     }
 }
