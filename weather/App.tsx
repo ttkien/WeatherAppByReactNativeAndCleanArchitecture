@@ -6,58 +6,29 @@
  * @flow
  */
 
-import React from 'react';
-import { Component } from 'react'
-import { Platform, StyleSheet, Text, View, Image, SafeAreaView, Alert, FlatList } from 'react-native';
-import { Card, ListItem, Button, Icon, SearchBar } from 'react-native-elements'
-import { Location } from 'weather-domain'
-import { DefaultLocationRepository } from 'weather-repositories'
-import * as Rx from 'rxjs'
-import { map, throttle, throttleTime } from 'rxjs/operators'
-import {SearchLocationList, SearchLocationListDataItem} from 'weather-ui';
+import React from "react";
+import { Component } from "react";
+import { View } from "react-native";
+import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+import Home from "./src/Home/Home";
+// import rootReducer from "./src/reducer";
+import { reducer } from "./src/reducer/reducer";
 
-type Props = {};
-type State = {
-    locations: SearchLocationListDataItem[]
-};
-export default class App extends Component<Props,State> {
+const store = createStore(reducer, applyMiddleware(thunk));
 
-    constructor(props: Props) {
+export default class App extends Component {
+
+    constructor(props) {
         super(props);
     }
 
-    state = {
-        locations: []
-    }
-    onChangeText = (text) => {
-
-        var repository = new DefaultLocationRepository()
-        repository.searchCity(text)
-            .pipe(throttleTime(1000))
-            .subscribe(
-                (results:[Location]) => {
-                    console.log(results)
-                    const dataItems = results.map((location:Location) => {
-                        return new SearchLocationListDataItem(location.name)
-                    })
-                    this.setState({
-                        locations: dataItems
-                    })
-                }
-            )
-    }
-
-    render() {
+    public render() {
         return (
-            <SafeAreaView>
-                <SearchBar
-                    onChangeText={this.onChangeText}
-                    placeholder='Enter location'
-                ></SearchBar>
-                <SearchLocationList
-                items={this.state.locations}
-                />
-            </SafeAreaView>
-        )
+             <Provider store={store}>
+             <Home></Home>
+             </Provider>
+        );
     }
 }
