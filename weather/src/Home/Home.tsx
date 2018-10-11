@@ -1,6 +1,6 @@
 import { Component } from "react";
 import React from "react";
-import { Image, Platform, SafeAreaView, Text, KeyboardAvoidingView } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, SafeAreaView, Text } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { connect } from "react-redux";
 import { SearchLocationList, SearchLocationListDataItem } from "weather-ui";
@@ -36,28 +36,26 @@ export class Home extends Component<Props> {
   public func;
   public onChangeText = (text: string) => {
     this.props.searchLocation(text);
-  };
+  }
 
   public onCancel = () => {
     this.onChangeText("");
-  };
+  }
   public isError(): boolean {
     return this.props.error !== undefined && this.props.error !== null;
   }
 
   public render() {
     let errorView;
-    if (this.isError()) {
+    if (this.isError() && this.props.error !== null) {
       errorView = <Text>{this.props.error.message}</Text>;
+    } else {
+      errorView = <Text></Text>;
     }
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <KeyboardAvoidingView
-          style = {{ flex: 1 }}
-          behavior="padding"
-          enabled
-        >
+
           <SearchBar
             platform="ios"
             onChangeText={this.onChangeText}
@@ -66,6 +64,11 @@ export class Home extends Component<Props> {
             placeholder="Enter location"
           />
           {errorView}
+          <KeyboardAvoidingView
+          style = {{ flex: 1 }}
+          behavior="padding"
+          enabled
+        >
           <SearchLocationList items={this.props.items} />
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -79,7 +82,7 @@ const mapStateToProps = (state: ISearchLocationState): Props => {
 
   let locations: SearchLocationListDataItem[] = [];
   if (searchLocation && searchLocation.locations) {
-    locations = searchLocation.locations.map(location => {
+    locations = searchLocation.locations.map((location) => {
       return new SearchLocationListDataItem(location.name);
     });
   }

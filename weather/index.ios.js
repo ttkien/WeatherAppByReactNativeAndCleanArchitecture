@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
-import App from './config';
+import App from "./App";
+import {} from "./src/Navigation/index.ios";
 
-const app = new App();
+// const app = new App();

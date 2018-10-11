@@ -8,7 +8,8 @@ export class Settings extends Component {
   public render() {
     return (
       <View>
-        <Text> prop </Text> </View>
+        <Text> prop </Text>
+         </View>
     );
   }
 }

@@ -1,2 +1,2 @@
 /* eslint-disable no-unused-vars */
-import App from './config';
+import App from './src/Navigation';

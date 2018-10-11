@@ -23,10 +23,6 @@ export function registerScreens(store, provider) {
     }).register();
   }
 
-// registerScreenVisibilityListener();
-
-    // let middleware = [thunk];
-	// middleware = [...middleware];
 export default function configureStore(initialState) {
 	return createStore(
 		reducer,
@@ -38,10 +34,7 @@ export default function configureStore(initialState) {
 const store = configureStore();
 registerScreens(store, Provider); // this is where you register all of your app's screens
 
-
-
 // start the app
-
 const navigatorStyle = {
 	statusBarColor: 'black',
 	statusBarTextColorScheme: 'light',
@@ -62,12 +55,19 @@ const navigatorStyle = {
 Navigation.startTabBasedApp({
 	tabs: [
 	  {
-		label: 'One',
+		label: 'Search',
 		screen: 'example.FirstTabScreen', // this is a registered name for a screen
 		title: 'Screen One',
         icon: require('./src/Home/icon-home.png'), // for icon button, provide the local image asset name
 
-	  }
+    },
+    {
+      label: 'Settings',
+      screen: 'example.FirstTabScreen', // this is a registered name for a screen
+      title: 'Screen One',
+          icon: require('./src/Home/icon-home.png'), // for icon button, provide the local image asset name
+  
+      }
 	],
 	tabsStyle: {
 		tabBarButtonColor: '#ffff00', // change the color of the tab icons and text (also unselected)
