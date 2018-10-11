@@ -1,54 +1,107 @@
 import { Component } from "react";
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { Image, Platform, SafeAreaView, Text, KeyboardAvoidingView } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { connect } from "react-redux";
 import { SearchLocationList, SearchLocationListDataItem } from "weather-ui";
 import { searchLocation } from "../actions/actions";
-import {  ISearchLocationState } from "../reducer/reducer";
+import { ISearchLocationState } from "../reducer/reducer";
 // import reducer from "../reducer/reducer";
 
-export class Home extends Component {
+class Props {
+  public items: SearchLocationListDataItem[];
+  public error: Error | null;
+  public isLoading: boolean;
 
-    public onChangeText = (text: string) => {
-        this.props.searchLocation(text);
-    }
-
-    public render() {
-        return (
-            <SafeAreaView>
-                <SearchBar
-                    onChangeText={this.onChangeText}
-                    placeholder="Enter location"
-                ></SearchBar>
-                <SearchLocationList
-                    items={this.props.items}
-                />
-            </SafeAreaView>
-        );
-    }
+  constructor(
+    items: SearchLocationListDataItem[],
+    error: Error | null = null,
+    isLoading: boolean
+  ) {
+    this.items = items;
+    this.error = error;
+    this.isLoading = isLoading;
+  }
 }
 
-const mapStateToProps = (state: ISearchLocationState) => {
-    // tslint:disable-next-line:no-shadowed-variable
-    const searchLocation: ISearchLocationState = state;
+// tslint:disable-next-line:max-classes-per-file
+export class Home extends Component<Props> {
+  public static navigationOptions = {
+    drawerLabel: "Home",
+    drawerIcon: ({ tintColor }) => (
+      <Image source={require("./icon-home.png")} style={[{ tintColor }]} />
+    )
+  };
 
-    let locations: SearchLocationListDataItem[] = [];
-    if (searchLocation && searchLocation.locations) {
-        locations = searchLocation.locations.map((location) => {
-            return new SearchLocationListDataItem(location.name);
-        });
+  public func;
+  public onChangeText = (text: string) => {
+    this.props.searchLocation(text);
+  };
+
+  public onCancel = () => {
+    this.onChangeText("");
+  };
+  public isError(): boolean {
+    return this.props.error !== undefined && this.props.error !== null;
+  }
+
+  public render() {
+    let errorView;
+    if (this.isError()) {
+      errorView = <Text>{this.props.error.message}</Text>;
     }
 
-    return {
-        items: locations,
-        error: searchLocation.error,
-        isLoading: searchLocation.isLoading
-    };
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          style = {{ flex: 1 }}
+          behavior="padding"
+          enabled
+        >
+          <SearchBar
+            platform="ios"
+            onChangeText={this.onChangeText}
+            onCancel={this.onCancel}
+            onClear={this.onCancel}
+            placeholder="Enter location"
+          />
+          {errorView}
+          <SearchLocationList items={this.props.items} />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  }
+}
+
+const mapStateToProps = (state: ISearchLocationState): Props => {
+  // tslint:disable-next-line:no-shadowed-variable
+  const searchLocation: ISearchLocationState = state;
+
+  let locations: SearchLocationListDataItem[] = [];
+  if (searchLocation && searchLocation.locations) {
+    locations = searchLocation.locations.map(location => {
+      return new SearchLocationListDataItem(location.name);
+    });
+  }
+
+  return {
+    items: addKeysToItems(locations),
+    error: searchLocation.error,
+    isLoading: searchLocation.isLoading
+  };
 };
+
+function addKeysToItems(params: SearchLocationListDataItem[]) {
+  return params.map((item: SearchLocationListDataItem) => {
+    return Object.assign(item, { key: item.title });
+  });
+}
 
 const mapDispatchToProps = {
-    searchLocation
+  searchLocation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
