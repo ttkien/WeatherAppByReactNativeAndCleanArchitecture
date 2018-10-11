@@ -15,6 +15,7 @@
     "react": "^16.4.15",
     "react-native": "0.57.1",
     "react-native-elements": "^1.0.0-beta5",
+    "react-native-navigation": "1.x.x",
     "react-native-vector-icons": "6.0.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
