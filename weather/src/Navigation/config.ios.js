@@ -8,36 +8,12 @@ import { reducer } from "./src/reducer/reducer";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from 'redux';
+import {registerScreens, registerScreenVisibilityListener} from "./screens";
 
-// register all screens of the app (including internal ones)
-export function registerScreens(store, provider) {
-    Navigation.registerComponent('example.FirstTabScreen', () => App, store, provider);
-  }
-
-  export function registerScreenVisibilityListener() {
-    new ScreenVisibilityListener({
-      willAppear: ({screen}) => console.log(`Displaying screen ${screen}`),
-      didAppear: ({screen, startTime, endTime, commandType}) => console.log('screenVisibility', `Screen ${screen} displayed in ${endTime - startTime} millis [${commandType}]`),
-      willDisappear: ({screen}) => console.log(`Screen will disappear ${screen}`),
-      didDisappear: ({screen}) => console.log(`Screen disappeared ${screen}`)
-    }).register();
-  }
-
-// registerScreenVisibilityListener();
-
-    // let middleware = [thunk];
-	// middleware = [...middleware];
-export default function configureStore(initialState) {
-	return createStore(
-		reducer,
-		initialState,
-		applyMiddleware(thunk)
-	);
-}
 
 const store = configureStore();
-registerScreens(store, Provider); // this is where you register all of your app's screens
-
+registerScreens(store, Provider);
+registerScreenVisibilityListener();
 
 const navigatorStyle = {
 	statusBarColor: 'black',
@@ -55,20 +31,26 @@ const navigatorStyle = {
 	drawUnderTabBar: true
 };
 
-
 // start the app
 Navigation.startTabBasedApp({
 	tabs: [
 	  {
-		label: 'One',
+		label: 'Search',
 		screen: 'example.FirstTabScreen', // this is a registered name for a screen
 		title: 'Screen One',
         icon: require('./src/Home/icon-home.png'), // for icon button, provide the local image asset name
 
-	  }
+    },
+    {
+      label: 'Settings',
+      screen: 'example.FirstTabScreen', // this is a registered name for a screen
+      title: 'Screen One',
+          icon: require('./src/Home/icon-home.png'), // for icon button, provide the local image asset name
+  
+      }
 	],
 	tabsStyle: {
 		tabBarButtonColor: '#ffff00', // change the color of the tab icons and text (also unselected)
 
 	}
-  });
+  });se

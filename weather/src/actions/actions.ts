@@ -31,7 +31,7 @@ export function didSearchLocationError(error: Error) {
 export function searchLocation(text: string) {
     return (dispatch) => {
         dispatch(willSearchLocation(text));
-        const repository = new DefaultLocationRepository();
+        const repository = new DefaultLocationRepository("AIzaSyDz8iOOAc-1NqzKRLl5n1qJFYY39NoL6EY");
         repository.searchCity(text)
             .subscribe((locations) => {
                 dispatch(didSearchLocation(locations));

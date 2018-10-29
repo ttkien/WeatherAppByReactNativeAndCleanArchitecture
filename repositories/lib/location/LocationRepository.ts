@@ -8,9 +8,14 @@ import { Location, LocationRepository } from "weather-domain";
 // import {} from '@reactivex/rxjs'
 // import 'rxjs/Rx'
 export class DefaultLocationRepository implements LocationRepository {
+    private googleAPIKey: string;
+
+    public constructor(googleAPIKey: string) {
+        this.googleAPIKey = googleAPIKey;
+    }
     public searchCity(searchText: string): RxJs.Observable<Location> {
         return RxJs.Observable.create((observer) => {
-            const key = "AIzaSyDz8iOOAc-1NqzKRLl5n1qJFYY39NoL6EY";
+            const key = this.googleAPIKey;
             const endcodedSearchText = encodeURI(searchText);
             const uri = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key=" + key
             + "&input=" + endcodedSearchText + "&types=(cities)";
