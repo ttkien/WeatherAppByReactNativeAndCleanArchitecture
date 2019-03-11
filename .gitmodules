@@ -1,0 +1,4 @@
+[submodule "weather-ui"]
+	path = weather-ui
+	url = https://github.com/ttkien/weather-ui
+	branch = master

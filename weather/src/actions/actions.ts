@@ -14,17 +14,19 @@ export function willSearchLocation(searchText: string) {
     };
 }
 
-export function didSearchLocation(locations: Location[]) {
+export function didSearchLocation(text: string, locations: Location[]) {
     return {
         type: DID_SEARCH_LOCATION,
         locations,
+        text
     };
 }
 
-export function didSearchLocationError(error: Error) {
+export function didSearchLocationError(text: string, error: Error) {
     return {
         type: DID_SEARCH_LOCATION_ERROR,
         error,
+        text
     };
 }
 
@@ -34,10 +36,10 @@ export function searchLocation(text: string) {
         const repository = new DefaultLocationRepository("AIzaSyDz8iOOAc-1NqzKRLl5n1qJFYY39NoL6EY");
         repository.searchCity(text)
             .subscribe((locations) => {
-                dispatch(didSearchLocation(locations));
+                dispatch(didSearchLocation(text, locations));
             },
                 (error) => {
-                    dispatch(didSearchLocationError(error));
+                    dispatch(didSearchLocationError(text, error));
                 }
             );
     };

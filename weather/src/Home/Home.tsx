@@ -12,15 +12,17 @@ class Props {
   public items: SearchLocationListDataItem[];
   public error: Error | null;
   public isLoading: boolean;
-
+  public text: string;
   constructor(
     items: SearchLocationListDataItem[],
     error: Error | null = null,
-    isLoading: boolean
+    isLoading: boolean,
+    text: string = ""
   ) {
     this.items = items;
     this.error = error;
     this.isLoading = isLoading;
+    this.text = text;
   }
 }
 
@@ -33,7 +35,6 @@ export class Home extends Component<Props> {
     )
   };
 
-  public func;
   public onChangeText = (text: string) => {
     this.props.searchLocation(text);
   }
@@ -62,6 +63,7 @@ export class Home extends Component<Props> {
             onCancel={this.onCancel}
             onClear={this.onCancel}
             placeholder="Enter location"
+            value= {this.props.text}
           />
           {errorView}
           <KeyboardAvoidingView
@@ -90,7 +92,8 @@ const mapStateToProps = (state: ISearchLocationState): Props => {
   return {
     items: addKeysToItems(locations),
     error: searchLocation.error,
-    isLoading: searchLocation.isLoading
+    isLoading: searchLocation.isLoading,
+    text: searchLocation.text
   };
 };
 

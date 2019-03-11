@@ -9,12 +9,14 @@ import {
 export interface ISearchLocationState {
   locations: Location[];
   isLoading: boolean;
+  text: string;
   error: Error | null;
 }
 
 export function reducer(
   state: ISearchLocationState = {
     locations: [],
+    text: "",
     isLoading: false,
     error: null
   },
@@ -25,6 +27,7 @@ export function reducer(
       return {
         ...state,
         locations: action.locations,
+        text: action.text,
         isLoading: false,
         error: null
       };
@@ -32,11 +35,13 @@ export function reducer(
       return {
         ...state,
         isLoading: true,
-        error: null
+        error: null,
+        text: action.text
       };
     case DID_SEARCH_LOCATION_ERROR:
       return {
         ...state,
+        text: action.text,
         error: action.error
       };
     default:
