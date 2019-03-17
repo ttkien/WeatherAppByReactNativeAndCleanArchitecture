@@ -1,6 +1,8 @@
 import { Observable } from "rxjs";
 import { Location } from "weather-domain";
 import {DefaultLocationRepository} from "weather-repositories";
+import { GOOGLE_API_KEY} from "../../constants";
+import MockLocationRepository from "../mockRepository/MockLocationRepository";
 
 export const WILL_SEARCH_LOCATION = "weather/actions/WILL_SEARCH_LOCATION";
 export const SEARCH_LOCATION = "weather/actions/SEARCH_LOCATION";
@@ -33,7 +35,8 @@ export function didSearchLocationError(text: string, error: Error) {
 export function searchLocation(text: string) {
     return (dispatch) => {
         dispatch(willSearchLocation(text));
-        const repository = new DefaultLocationRepository("AIzaSyDz8iOOAc-1NqzKRLl5n1qJFYY39NoL6EY");
+        const repository = new MockLocationRepository();
+
         repository.searchCity(text)
             .subscribe((locations) => {
                 dispatch(didSearchLocation(text, locations));
