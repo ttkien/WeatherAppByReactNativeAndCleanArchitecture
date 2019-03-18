@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs'
 import { Location} from '../entities/Location'
 
-export interface LocationUsecaseInterface {
+export interface PlaceUsecaseInterface {
      searchCity: (searchText:string) => Observable<Location>
 }

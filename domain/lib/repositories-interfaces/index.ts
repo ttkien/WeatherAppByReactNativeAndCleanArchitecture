@@ -1,1 +1,1 @@
-export * from './LocationRepository'
+export * from './PlaceRepository'

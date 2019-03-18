@@ -1,0 +1,23 @@
+{
+  "name": "weather-usecases",
+  "version": "0.0.1",
+  "description": "Usecases implementation",
+  "main": "index.js",
+  "author": "Kien Tran",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^10.11.4",
+    "debug": "^4.0.1",
+    "jest": "^23.6.0",
+    "rxjs": "^6.4.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.3.3333",
+    "weather-domain": "../domain"
+  },
+  "scripts": {
+    "build": "cd ../domain && yarn build && cd ../usecases && yarn install && tsc"
+  },
+  "files": [
+    "lib"
+  ]
+}

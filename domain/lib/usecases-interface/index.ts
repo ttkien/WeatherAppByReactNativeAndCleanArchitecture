@@ -1,1 +1,1 @@
-export * from './LocationUsecase'
+export * from './PlaceUsecaseInterface'

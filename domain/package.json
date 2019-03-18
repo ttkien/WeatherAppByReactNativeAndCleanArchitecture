@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "Domain",
   "main": "./dist/index.js",
+  "typings": "dist/index",
   "scripts": {
     "build": "yarn install && tsc",
     "test": "jest"

@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { Location } from '../entities';
 
-export interface LocationRepository {
+export interface PlaceRepository {
     searchCity: (searchText: string) => Observable<Location>
 }
