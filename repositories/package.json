@@ -4,7 +4,7 @@
   "description": "Repository",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "yarn install && tsc",
+    "build": "cd ../domain && yarn build && cd ../repositories && yarn install && tsc",
     "test": "jest",
     "debug": "node --inspect-brk"
   },

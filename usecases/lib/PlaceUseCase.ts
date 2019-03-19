@@ -1,15 +1,14 @@
-import { Location, PlaceUsecaseInterface, PlaceRepository } from 'weather-domain'
+import { Location, PlaceUsecaseInterface, CityRepositoryInterface } from 'weather-domain'
 import { Observable} from 'rxjs'
 
 export class PlaceUseCase implements PlaceUsecaseInterface {
-    private locationRepository: PlaceRepository
+    private locationRepository: CityRepositoryInterface
 
-    constructor(locationRepository: PlaceRepository) {
+    constructor(locationRepository: CityRepositoryInterface) {
         this.locationRepository = locationRepository
     }
 
     searchCity(searchText: string): Observable<Location> {
         return this.locationRepository.searchCity(searchText)
     }
-
 }

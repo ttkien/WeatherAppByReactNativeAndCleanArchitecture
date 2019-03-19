@@ -1,6 +1,6 @@
-import { DailyPredictionResult } from "./DailyPredictionResult";
+import { DailyPredictionResult } from ".";
 
-export default class MonthWeatherResult {
+export class MonthWeatherResult {
     public dailyPredictionItem: [DailyPredictionResult]
     constructor(dailyPredictionItem: [DailyPredictionResult]) {
         this.dailyPredictionItem = dailyPredictionItem

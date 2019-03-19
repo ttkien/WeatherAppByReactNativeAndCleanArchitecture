@@ -1,10 +1,6 @@
-import { WindModel } from "./WindModel";
-import { HumidityModel } from "./HumidityModel";
-import CloudinessModel from "./CloudinessModel";
-import { TemperatureModel } from "./TemperatureModel";
-import { WeatherModel } from "./WeatherModel";
+import { WindModel, HumidityModel, CloudinessModel, TemperatureModel, WeatherModel } from ".";
 
-export default class PredictionResult {
+export class PredictionResult {
     public wind?: WindModel
     public humidity?: HumidityModel
     public cloudiness?: CloudinessModel

@@ -1,6 +1,6 @@
-import { HourlyPredictionResult } from "./HourlyPredictionResult";
+import { HourlyPredictionResult } from ".";
 
-export default class TodayWeatherResult {
+export class TodayWeatherResult {
     public hourlyPredictionItem?: [HourlyPredictionResult]
     
 }

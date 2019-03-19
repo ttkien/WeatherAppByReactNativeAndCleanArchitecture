@@ -1,1 +1,2 @@
-export * from './PlaceRepository'
+export * from './CityRepositoryInterface'
+export * from './WeatherRepositoryInterface'

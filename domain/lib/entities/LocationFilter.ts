@@ -1,6 +1,4 @@
-import CityModel from "./CityModel";
-import { LocationCoordinate2D } from "./LocationCoordinate2D";
-
+import { CityModel, LocationCoordinate2D } from "..";
 
 export class LocationFilter {
     public city?: CityModel

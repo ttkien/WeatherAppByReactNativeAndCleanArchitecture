@@ -1,19 +1,15 @@
 import * as RxJs from "rxjs";
 import * as RxJsOperators from "rxjs/operators";
-
 import Axios, * as axios from "axios";
-import { createClient } from "react-native-google-maps-services";
-import { Location, LocationRepository } from "weather-domain";
-// import { map, flatMap } from 'rxjs/operators';
-// import {} from '@reactivex/rxjs'
-// import 'rxjs/Rx'
-export class DefaultLocationRepository implements LocationRepository {
+import * as Domain from "weather-domain";
+
+export class CityRepository implements Domain.CityRepositoryInterface {
     private googleAPIKey: string;
 
     public constructor(googleAPIKey: string) {
         this.googleAPIKey = googleAPIKey;
     }
-    public searchCity(searchText: string): RxJs.Observable<Location> {
+    public searchCity(searchText: string): RxJs.Observable<Domain.CityModel> {
         return RxJs.Observable.create((observer) => {
             const key = this.googleAPIKey;
             const endcodedSearchText = encodeURI(searchText);
@@ -24,14 +20,14 @@ export class DefaultLocationRepository implements LocationRepository {
             axios.default.get(uri)
             .then( (response) => {
                 if (response.status === 200 && !response.data.error_message) {
-                    const results: Location[] = [];
+                    const results: Domain.CityModel[] = [];
                     console.info(response.data);
                     for (const prediction of response.data.predictions) {
                                     const structured_formatting = prediction.structured_formatting;
                                     const mainText = structured_formatting.main_text;
                                     const secondaryText = structured_formatting.secondary_text;
 
-                                    results.push(new Location(
+                                    results.push(new Domain.CityModel(
                                         mainText, secondaryText,
                                     ));
                                 }
@@ -48,30 +44,11 @@ export class DefaultLocationRepository implements LocationRepository {
 
                 observer.error(error);
             });
-
-            // RxHR.get(uri, options).subscribe(
-            //     data => {
-            //         if (data.response.statusCode === 200) {
-            //             var results: Array<Location> = []
-            //             for (const prediction of data.body.predictions) {
-            //                 var structured_formatting = prediction.structured_formatting
-            //                 var mainText = structured_formatting.main_text
-            //                 var secondaryText = structured_formatting.secondary_text
-
-            //                 results.push(new Location(
-            //                     mainText, secondaryText
-            //                 ))
-            //             }
-
-            //             observer.next(results)
-            //         }
-            //     },
-            //     error => {
-
-            //     }
-            // )
-        // })
         });
+    }
+
+    public searchCityWithLocation(location: Domain.LocationCoordinate2D) : RxJs.Observable<Domain.CityModel | null> {
+        return RxJs.throwError(Error("Not implemnet"))
     }
 
 }

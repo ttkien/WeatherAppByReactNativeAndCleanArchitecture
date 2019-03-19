@@ -1,5 +1,5 @@
 
-export default class CityModel {
+export class CityModel {
     public name: string
     public country: string
   
